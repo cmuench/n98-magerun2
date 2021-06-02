@@ -1067,16 +1067,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.4.18",
+            "version": "v4.4.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "5d4c874b0eb1c32d40328a09dbc37307a5a910b0"
+                "reference": "047773e7016e4fd45102cedf4bd2558ae0d0c32f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/5d4c874b0eb1c32d40328a09dbc37307a5a910b0",
-                "reference": "5d4c874b0eb1c32d40328a09dbc37307a5a910b0",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/047773e7016e4fd45102cedf4bd2558ae0d0c32f",
+                "reference": "047773e7016e4fd45102cedf4bd2558ae0d0c32f",
                 "shasum": ""
             },
             "require": {
@@ -1127,7 +1127,7 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony EventDispatcher Component",
+            "description": "Provides tools that allow your application components to communicate with each other by dispatching events and listening to them",
             "homepage": "https://symfony.com",
             "funding": [
                 {
@@ -1143,7 +1143,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-12-18T07:41:31+00:00"
+            "time": "2021-05-26T17:39:37+00:00"
         },
         {
             "name": "symfony/event-dispatcher-contracts",
