@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace N98\Magento\Command\System\Email;
 
+use function Laravel\Prompts\text;
 use Magento\Framework\App\Area;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -63,7 +64,7 @@ class TestCommand extends AbstractMagentoCommand
     {
         $this
             ->setName('sys:email:test')
-            ->addOption('to', null, InputOption::VALUE_REQUIRED, 'Recipient email address')
+            ->addOption('to', null, InputOption::VALUE_REQUIRED, 'Recipient email address (prompted for if omitted)')
             ->addOption(
                 'from',
                 null,
@@ -90,8 +91,11 @@ settings are correctly configured for a given store view.
 The email re-uses the "Contact Form" template shipped with Magento, since it does
 not require any additional data to be set up.
 
+If --to is omitted, you will be prompted for it interactively.
+
 Usage:
 
+    n98-magerun2 sys:email:test
     n98-magerun2 sys:email:test --to=you@example.com
     n98-magerun2 sys:email:test --to=you@example.com --store=2
     n98-magerun2 sys:email:test --to=you@example.com --from=sender@example.com --cc=cc1@example.com --cc=cc2@example.com
@@ -106,8 +110,17 @@ HELP
             return Command::FAILURE;
         }
 
-        $to = (string) $input->getOption('to');
-        if ($to === '' || !filter_var($to, FILTER_VALIDATE_EMAIL)) {
+        $to = $input->getOption('to');
+        if ($to === null || $to === '') {
+            $to = text(
+                '<question>Recipient email address:</question>',
+                validate: fn ($value) => $this->validateRequiredEmail($value)
+            );
+        }
+
+        // In non-interactive mode (e.g. missing --to and no TTY), the prompt above cannot ask
+        // and just returns an empty default, so this check still needs to catch that case.
+        if (!is_string($to) || $to === '' || !filter_var($to, FILTER_VALIDATE_EMAIL)) {
             $output->writeln('<error>Please provide a valid recipient email address with --to</error>');
 
             return Command::FAILURE;
@@ -228,5 +241,22 @@ HELP
         }
 
         return Command::SUCCESS;
+    }
+
+    /**
+     * @param string $value
+     * @return string|null
+     */
+    private function validateRequiredEmail(string $value): ?string
+    {
+        if ($value === '') {
+            return 'Please enter a recipient email address';
+        }
+
+        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+            return 'Please enter a valid email address';
+        }
+
+        return null;
     }
 }

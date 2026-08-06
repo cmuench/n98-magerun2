@@ -1051,13 +1051,15 @@ function cleanup_files_in_magento() {
 }
 
 @test "Command: sys:email:test missing --to" {
-  run $BIN "sys:email:test"
+  # --no-interaction avoids blocking on the interactive prompt and keeps this from ever
+  # reaching the real mail transport.
+  run $BIN "sys:email:test" --no-interaction
   assert_output --partial "Please provide a valid recipient email address with --to"
   assert [ "$status" -eq 1 ]
 }
 
 @test "Command: sys:email:test invalid --to" {
-  run $BIN "sys:email:test" --to=not-an-email
+  run $BIN "sys:email:test" --to=not-an-email --no-interaction
   assert_output --partial "Please provide a valid recipient email address with --to"
   assert [ "$status" -eq 1 ]
 }
