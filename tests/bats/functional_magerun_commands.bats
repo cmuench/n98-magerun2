@@ -1050,6 +1050,18 @@ function cleanup_files_in_magento() {
   assert_output --partial "Last executed jobs"
 }
 
+@test "Command: sys:email:test missing --to" {
+  run $BIN "sys:email:test"
+  assert_output --partial "Please provide a valid recipient email address with --to"
+  assert [ "$status" -eq 1 ]
+}
+
+@test "Command: sys:email:test invalid --to" {
+  run $BIN "sys:email:test" --to=not-an-email
+  assert_output --partial "Please provide a valid recipient email address with --to"
+  assert [ "$status" -eq 1 ]
+}
+
 @test "Command: sys:info" {
   run $BIN "sys:info"
   assert_output --partial "Magento System Information"

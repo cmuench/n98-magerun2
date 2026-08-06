@@ -6,6 +6,7 @@ RECENT CHANGES
 
 - Break: raise minimum PHP requirement to 8.2 (and update laminas dependencies accordingly)
 - Add: interactive download command for Magento/Adobe Commerce/Mage-OS
+- Add: `sys:email:test` command to send a test email for deliverability testing
 - Add: prompt interactively for `integration:create` arguments and make `integration:delete` interactive when no name is given
 - Imp: overhaul command output look and feel
 - Fix: stop double-JSON-encoding `admin_user.extra` on `admin:user:change-status`

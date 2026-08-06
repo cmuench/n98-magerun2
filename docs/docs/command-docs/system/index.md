@@ -32,6 +32,9 @@ Commands for system-level information, checks, and maintenance tasks in Magento.
 - [sys:store:config:base-url:list](./sys-store-config-base-url-list.md) - List all configured store URLs
 - [sys:url:list](./sys-url-list.md) - Get all URLs (products, categories, CMS pages)
 
+### Email
+- [sys:email:test](./sys-email-test.md) - Send a test email for deliverability testing
+
 ### System Maintenance
 - [sys:check](./sys-check.md) - Check Magento system for issues
 - [sys:maintenance](./sys-maintenance.md) - Toggle maintenance mode
